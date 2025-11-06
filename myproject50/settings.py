@@ -67,18 +67,10 @@ DATABASES = {
 
 # 🔐 التحقق من كلمات المرور
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # 🌍 الإعدادات اللغوية والمنطقة الزمنية
@@ -88,14 +80,17 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# 📁 الملفات الثابتة
-STATIC_URL = 'static/'
+# 📁 الملفات الثابتة (Static Files)
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # مجلد التجميع النهائي للملفات الثابتة عند النشر
+
+# 🖼️ ملفات الوسائط (Media Files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 # 🔧 الإعداد الافتراضي للمفاتيح التلقائية
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 🌐 دعم الترجمات (إن احتجت لاحقًا)
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
+LOCALE_PATHS = [BASE_DIR / 'locale']
