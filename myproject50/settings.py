@@ -37,10 +37,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'myproject50.urls'
 
+# 🎨 تعريف مسار القوالب (Templates)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 🔹 هنا أضفنا مسار مجلد التمبلت الذي أنشأناه
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
