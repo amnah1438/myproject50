@@ -8,13 +8,13 @@ def home(request):
     return render(request, 'home.html')
 
 
-# 🧩 إنشاء حساب جديد
+# 🧩 إنشاء حساب جديد + دخول مباشر
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username').strip()
-        email = request.POST.get('email').strip()
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+        username = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm_password', '')
 
         # ✅ تحقق من وجود جميع الحقول
         if not username or not email or not password or not confirm_password:
@@ -35,13 +35,15 @@ def register_view(request):
             messages.error(request, "⚠️ البريد الإلكتروني مستخدم مسبقًا.")
             return redirect('register')
 
-        # ✅ إنشاء مستخدم جديد وتفعيله مباشرة
+        # ✅ إنشاء المستخدم وتفعيله
         user = User.objects.create_user(username=username, email=email, password=password)
         user.is_active = True
         user.save()
 
-        messages.success(request, "🎉 تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.")
-        return redirect('login')
+        # ✅ تسجيل الدخول التلقائي بعد التسجيل
+        login(request, user)
+        messages.success(request, f"🎉 تم إنشاء الحساب بنجاح! مرحبًا بك يا {user.username} 👋")
+        return redirect('home')
 
     return render(request, 'core-templates/register.html')
 
@@ -49,15 +51,13 @@ def register_view(request):
 # 🔐 تسجيل الدخول
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username').strip()
-        password = request.POST.get('password')
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '')
 
-        # ✅ التحقق من أن الحقول ليست فارغة
         if not username or not password:
             messages.error(request, "⚠️ يرجى إدخال اسم المستخدم وكلمة المرور.")
             return redirect('login')
 
-        # ✅ التحقق من صحة بيانات المستخدم
         user = authenticate(request, username=username, password=password)
         if user is not None:
             if user.is_active:
