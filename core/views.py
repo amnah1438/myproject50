@@ -26,26 +26,26 @@ def register_view(request):
         # ✅ التحقق من تعبئة جميع الحقول
         if not all([username, email, password1, password2]):
             messages.error(request, "⚠️ يرجى تعبئة جميع الحقول المطلوبة.")
-            return redirect('register')
+            return redirect('core:register')
 
         # ✅ التحقق من تطابق كلمتي المرور
         if password1 != password2:
             messages.error(request, "❌ كلمتا المرور غير متطابقتان.")
-            return redirect('register')
+            return redirect('core:register')
 
         # ✅ التحقق من أن البريد الإلكتروني صالح (تنسيق)
         if "@" not in email or "." not in email.split("@")[-1]:
             messages.error(request, "📧 يرجى إدخال بريد إلكتروني صحيح.")
-            return redirect('register')
+            return redirect('core:register')
 
         # ✅ التحقق من عدم وجود اسم المستخدم أو البريد مسبقًا
         if User.objects.filter(username=username).exists():
             messages.error(request, "⚠️ اسم المستخدم مستخدم مسبقًا.")
-            return redirect('register')
+            return redirect('core:register')
 
         if User.objects.filter(email=email).exists():
             messages.error(request, "⚠️ البريد الإلكتروني مستخدم مسبقًا.")
-            return redirect('register')
+            return redirect('core:register')
 
         # ✅ إنشاء المستخدم الجديد وتفعيله
         user = User.objects.create_user(username=username, email=email, password=password1)
@@ -55,7 +55,7 @@ def register_view(request):
         # ✅ تسجيل الدخول التلقائي بعد التسجيل
         login(request, user)
         messages.success(request, f"🎉 تم إنشاء الحساب بنجاح! مرحبًا بك يا {user.username} 👋")
-        return redirect('home')
+        return redirect('core:home')
 
     # عرض صفحة التسجيل
     return render(request, 'core-templates/register.html')
@@ -74,7 +74,7 @@ def login_view(request):
         # ✅ التحقق من إدخال البيانات
         if not username or not password:
             messages.error(request, "⚠️ يرجى إدخال اسم المستخدم وكلمة المرور.")
-            return redirect('login')
+            return redirect('core:login')
 
         # ✅ مصادقة المستخدم
         user = authenticate(request, username=username, password=password)
@@ -83,13 +83,13 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 messages.success(request, f"👋 أهلاً {user.username}! تم تسجيل الدخول بنجاح.")
-                return redirect('home')
+                return redirect('core:home')
             else:
                 messages.warning(request, "🚫 الحساب غير مفعل. يرجى التواصل مع الإدارة.")
-                return redirect('login')
+                return redirect('core:login')
         else:
             messages.error(request, "❌ اسم المستخدم أو كلمة المرور غير صحيحة.")
-            return redirect('login')
+            return redirect('core:login')
 
     # عرض صفحة تسجيل الدخول
     return render(request, 'core-templates/login.html')
@@ -102,4 +102,4 @@ def logout_view(request):
     """
     logout(request)
     messages.info(request, "🚪 تم تسجيل الخروج بنجاح. نراك قريبًا 👋")
-    return redirect('login')
+    return redirect('core:login')
