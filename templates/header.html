@@ -60,14 +60,14 @@
 
   <div class="nav-container">
     <div class="logos">
-      <img src="/static/images/moe-logo.png" alt="شعار وزارة التعليم">
-      <img src="/static/images/school-logo.png" alt="شعار المدرسة">
-      <img src="/static/images/vision2030.png" alt="رؤية السعودية 2030">
+      <img src="{% static 'images/moe-logo.png' %}" alt="شعار وزارة التعليم">
+      <img src="{% static 'images/school-logo.png' %}" alt="شعار المدرسة">
+      <img src="{% static 'images/vision2030.png' %}" alt="رؤية السعودية 2030">
     </div>
 
     <nav>
       <ul>
-        <li><a href="{% url 'home' %}">الرئيسية</a></li>
+        <li><a href="{% url 'core:home' %}">الرئيسية</a></li>
         <li><a href="#">التقارير</a></li>
         <li><a href="#">البرامج</a></li>
         <li><a href="#">التعاميم</a></li>
@@ -79,8 +79,8 @@
 
     <!-- 🔐 أزرار تسجيل الدخول وإنشاء الحساب -->
     <div class="auth-buttons">
-      <a href="{% url 'register' %}">إنشاء حساب</a>
-      <a href="{% url 'login' %}">تسجيل الدخول</a>
+      <a href="{% url 'core:register' %}">إنشاء حساب</a>
+      <a href="{% url 'core:login' %}">تسجيل الدخول</a>
     </div>
   </div>
 </header>
