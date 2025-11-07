@@ -1,12 +1,13 @@
 from pathlib import Path
+import os
 
 # 🏗️ المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 🔐 المفتاح السري للمشروع
+# 🔐 المفتاح السري للمشروع (غيّريه عند النشر)
 SECRET_KEY = 'django-insecure-4nrjl&6hxynae=1hk6r09*4y#%-*=dw#cju!#h87i70kvochmp'
 
-# ⚙️ وضع التطوير (فعّل False عند النشر)
+# ⚙️ وضع التطوير (فعّلي False عند النشر)
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -46,7 +47,10 @@ ROOT_URLCONF = 'myproject50.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # 📁 المسار الذي يحوي ملفات HTML
+        'DIRS': [
+            BASE_DIR / 'templates',         # 📁 القوالب العامة
+            BASE_DIR / 'core' / 'templates' # 📁 القوالب الخاصة بتطبيق core
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,8 +91,8 @@ USE_TZ = True
 
 # 📂 إعداد الملفات الثابتة (Static Files)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # مجلد الملفات أثناء التطوير
-STATIC_ROOT = BASE_DIR / "staticfiles"    # مجلد التجميع النهائي عند النشر
+STATICFILES_DIRS = [BASE_DIR / "static"]   # مجلد التطوير
+STATIC_ROOT = BASE_DIR / "staticfiles"     # مجلد الإنتاج
 
 # 🖼️ إعداد ملفات الوسائط (Media Files)
 MEDIA_URL = '/media/'
