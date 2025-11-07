@@ -5,87 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية | منصة النشاط الريادي</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'images/moe_logo.png' %}" type="image/png">
-
-    <style>
-        body {
-            font-family: "Tajawal", sans-serif;
-            background: linear-gradient(135deg, #eaf4ee, #f8fdfb);
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #006c35;
-            color: white;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 20px;
-            margin: 0;
-        }
-
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            background-color: #009a58;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        header a:hover {
-            background-color: #00b068;
-        }
-
-        main {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        h2 {
-            color: #006c35;
-            font-weight: 700;
-        }
-
-        p {
-            font-size: 16px;
-            color: #333;
-        }
-
-        footer {
-            text-align: center;
-            position: fixed;
-            bottom: 10px;
-            width: 100%;
-            color: #777;
-            font-size: 13px;
-        }
-    </style>
 </head>
+
 <body>
+    {% include 'core-templates/header.html' %}
 
-<header>
-    <h1>🎓 منصة النشاط الريادي</h1>
-    <a href="{% url 'core:logout' %}">🚪 تسجيل الخروج</a>
-</header>
+    <main>
+        <h2>👋 مرحبًا يا {{ user.username }}!</h2>
+        <p>مرحبًا بك في منصة النشاط الريادي للثانوية الثالثة عشر بعرعر 🌿</p>
+        <p>يمكنك من هنا متابعة الأنشطة، رفع التقارير، واستعراض الإنجازات.</p>
+    </main>
 
-<main>
-    <h2>👋 مرحبًا يا {{ user.username }}!</h2>
-    <p>مرحبًا بك في منصة النشاط الريادي للثانوية الثالثة عشر بعرعر 🌿</p>
-    <p>يمكنك من هنا متابعة الأنشطة، رفع التقارير، واستعراض الإنجازات.</p>
-</main>
-
-<footer>
-    جميع الحقوق محفوظة © منصة النشاط الريادي | بإشراف الأستاذة آمنة مالح العنزي
-</footer>
-
+    <footer>
+        جميع الحقوق محفوظة © منصة النشاط الريادي | بإشراف الأستاذة آمنة مالح العنزي
+    </footer>
 </body>
 </html>
