@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إنشاء حساب جديد</title>
+</head>
+<body dir="rtl">
+    <h2>🧍‍♀️ إنشاء حساب جديد</h2>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>اسم المستخدم:</label>
+        <input type="text" name="username" required><br><br>
+
+        <label>البريد الإلكتروني:</label>
+        <input type="email" name="email" required><br><br>
+
+        <label>كلمة المرور:</label>
+        <input type="password" name="password1" required><br><br>
+
+        <label>تأكيد كلمة المرور:</label>
+        <input type="password" name="password2" required><br><br>
+
+        <button type="submit">إنشاء الحساب</button>
+    </form>
+
+    <p>لديك حساب؟ <a href="{% url 'login' %}">تسجيل الدخول</a></p>
+</body>
+</html>
