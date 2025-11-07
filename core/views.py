@@ -4,9 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 
+
 # 🏠 الصفحة الرئيسية
 @csrf_protect
 def home(request):
+    """عرض الصفحة الرئيسية بعد تسجيل الدخول"""
     return render(request, 'home.html')
 
 
@@ -101,5 +103,5 @@ def logout_view(request):
     تسجيل خروج المستخدم وإعادة توجيهه لصفحة تسجيل الدخول.
     """
     logout(request)
-    messages.info(request, "🚪 تم تسجيل الخروج بنجاح. نراك قريبًا 👋")
+    messages.success(request, "🚪 تم تسجيل الخروج بنجاح. نراك قريبًا 👋")
     return redirect('core:login')
