@@ -13,13 +13,20 @@ def register_view(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')  # ✅ أضفنا حقل التأكيد
 
-        # التحقق من أن اسم المستخدم غير مستخدم مسبقًا
+        # ✅ تحقق من تطابق كلمة المرور
+        if password != confirm_password:
+            messages.error(request, "❌ كلمتا المرور غير متطابقتين.")
+            return redirect('register')
+
+        # ✅ التحقق من أن اسم المستخدم غير مستخدم مسبقًا
         if User.objects.filter(username=username).exists():
             messages.error(request, "⚠️ اسم المستخدم موجود مسبقًا.")
         else:
-            # إنشاء مستخدم جديد
+            # ✅ إنشاء مستخدم جديد
             user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
             messages.success(request, "🎉 تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.")
             return redirect('login')  # إعادة التوجيه لصفحة تسجيل الدخول بعد النجاح
 
@@ -36,7 +43,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, f"مرحبًا {user.username} 👋")
-            return redirect('home')  # التوجيه إلى الصفحة الرئيسية بعد تسجيل الدخول
+            return redirect('home')  # ✅ التوجيه للصفحة الرئيسية بعد الدخول
         else:
             messages.error(request, "❌ بيانات الدخول غير صحيحة، حاول مرة أخرى.")
 
