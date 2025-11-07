@@ -8,16 +8,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # 🏠 التطبيق الأساسي (core)
-    path('', include('core.urls')),
+    path('', include(('core.urls', 'core'), namespace='core')),
 
     # 🏪 تطبيق المتجر
-    path('store/', include('store.urls')),
+    path('store/', include(('store.urls', 'store'), namespace='store')),
 
     # 💳 تطبيق الفواتير والمدفوعات
-    path('billing/', include('billing.urls')),
+    path('billing/', include(('billing.urls', 'billing'), namespace='billing')),
 ]
 
-# 🖼️ دعم عرض ملفات الوسائط (Media) أثناء التطوير
+# 🖼️ دعم عرض ملفات الوسائط والملفات الثابتة أثناء التطوير
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
