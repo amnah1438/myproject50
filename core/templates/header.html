@@ -97,7 +97,7 @@
     <div class="auth-buttons">
       {% if user.is_authenticated %}
         <span class="welcome">👋 مرحبًا {{ user.username }}!</span>
-        <a href="{% url 'logout' %}">تسجيل الخروج</a>
+        <a href="{% url 'core:logout' %}">تسجيل الخروج</a>
       {% else %}
         <a href="{% url 'core:register' %}">إنشاء حساب</a>
         <a href="{% url 'core:login' %}">تسجيل الدخول</a>
