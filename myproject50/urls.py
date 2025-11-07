@@ -1,12 +1,23 @@
 from django.contrib import admin
-from django.urls import path, include  # ✅ include لإضافة روابط التطبيقات
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    # لوحة الإدارة
+    # 🧭 لوحة التحكم الإدارية
     path('admin/', admin.site.urls),
 
-    # 🌟 روابط التطبيقات الثلاثة
-    path('', include('core.urls')),        # التطبيق الأساسي (الصفحة الرئيسية مثلاً)
-    path('store/', include('store.urls')), # تطبيق المتجر
-    path('billing/', include('billing.urls')), # تطبيق الفواتير والدفع
+    # 🏠 التطبيق الأساسي (core)
+    path('', include('core.urls')),
+
+    # 🏪 تطبيق المتجر
+    path('store/', include('store.urls')),
+
+    # 💳 تطبيق الفواتير والمدفوعات
+    path('billing/', include('billing.urls')),
 ]
+
+# 🖼️ دعم عرض ملفات الوسائط (Media) أثناء التطوير
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
