@@ -1,0 +1,85 @@
+{% load static %}
+<!-- ==============================
+     الشريط العلوي (Header)
+     ============================== -->
+<header>
+  <style>
+    header {
+      background-color: #006c35;
+      color: white;
+      font-family: "Cairo", sans-serif;
+      padding: 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logos img {
+      height: 55px;
+      margin-inline: 8px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #d4f5e6;
+      text-decoration: underline;
+    }
+
+    .auth-buttons a {
+      background-color: white;
+      color: #006c35;
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .auth-buttons a:hover {
+      background-color: #004d25;
+      color: white;
+    }
+  </style>
+
+  <div class="nav-container">
+    <div class="logos">
+      <img src="{% static 'images/moe-logo.png' %}" alt="شعار وزارة التعليم">
+      <img src="{% static 'images/school-logo.png' %}" alt="شعار المدرسة">
+      <img src="{% static 'images/vision2030.png' %}" alt="رؤية السعودية 2030">
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="{% url 'core:home' %}">الرئيسية</a></li>
+        <li><a href="#">التقارير</a></li>
+        <li><a href="#">البرامج</a></li>
+        <li><a href="#">التعاميم</a></li>
+        <li><a href="#">الأخبار</a></li>
+        <li><a href="#">الجوائز</a></li>
+        <li><a href="#">التواصل</a></li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <a href="{% url 'core:register' %}">إنشاء حساب</a>
+      <a href="{% url 'core:login' %}">تسجيل الدخول</a>
+    </div>
+  </div>
+</header>
