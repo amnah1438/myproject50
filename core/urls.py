@@ -1,9 +1,18 @@
 from django.urls import path
 from . import views
 
+app_name = "core"  # 🔖 لتجنّب التعارض مع تطبيقات أخرى مستقبلاً
+
 urlpatterns = [
-    path('', views.home, name='home'),              # الصفحة الرئيسية
-    path('register/', views.register_view, name='register'),  # إنشاء حساب
-    path('login/', views.login_view, name='login'),           # تسجيل دخول
-    path('logout/', views.logout_view, name='logout'),        # تسجيل خروج
+    # 🏠 الصفحة الرئيسية
+    path('', views.home, name='home'),
+
+    # 🧩 إنشاء حساب جديد
+    path('register/', views.register_view, name='register'),
+
+    # 🔐 تسجيل الدخول
+    path('login/', views.login_view, name='login'),
+
+    # 🚪 تسجيل الخروج
+    path('logout/', views.logout_view, name='logout'),
 ]
