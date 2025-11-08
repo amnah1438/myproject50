@@ -1,55 +1,62 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>قائمة المنتجات</title>
-    <style>
-        body {
-            font-family: "Cairo", sans-serif;
-            background-color: #f8f9fa;
-            direction: rtl;
-            text-align: center;
-            padding: 40px;
-        }
-        .product {
-            border: 2px solid #006c35;
-            border-radius: 12px;
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            width: 320px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .product img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        h2 {
-            color: #006c35;
-        }
-        p {
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <h1>🛍️ قائمة المنتجات</h1>
+<section class="products-section">
+  <h2>🛍️ قائمة المنتجات</h2>
 
+  <div class="products-grid">
     {% for product in products %}
-        <div class="product">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            {% else %}
-                <p>لا توجد صورة</p>
-            {% endif %}
-            <h2>{{ product.name }}</h2>
-            <p>السعر: {{ product.price }} ر.س</p>
-            <p>{{ product.description }}</p>
-        </div>
+      <div class="product">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <img src="{% static 'images/no-image.png' %}" alt="لا توجد صورة">
+        {% endif %}
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p class="price">💰 {{ product.price }} ر.س</p>
+      </div>
     {% empty %}
-        <p>لا توجد منتجات حالياً.</p>
+      <p>🚫 لا توجد منتجات حالياً.</p>
     {% endfor %}
-</body>
-</html>
+  </div>
+</section>
+
+<style>
+  .products-section {
+    padding: 40px 20px;
+  }
+  .products-section h2 {
+    color: #006c35;
+    margin-bottom: 30px;
+  }
+  .products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  .product {
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    padding: 15px;
+  }
+  .product:hover {
+    transform: translateY(-5px);
+  }
+  .product img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .product h3 {
+    color: #006c35;
+    margin-top: 10px;
+  }
+  .product .price {
+    font-weight: bold;
+    color: #004d25;
+  }
+</style>
