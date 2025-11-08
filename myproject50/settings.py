@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv  # ✅ لتحميل مفاتيح Cloudinary من ملف .env
+import cloudinary  # ☁️ مكتبة Cloudinary
 
 # 🏗️ المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,15 +9,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🧭 تحميل ملف البيئة من المسار الصحيح
 load_dotenv(BASE_DIR / ".env")
 
-# 🔐 المفتاح السري للمشروع (تغيّريه عند النشر)
+# ✅ تهيئة Cloudinary مبكرًا (مهم جدًا)
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
+# 🔐 المفتاح السري للمشروع
 SECRET_KEY = 'django-insecure-4nrjl&6hxynae=1hk6r09*4y#%-*=dw#cju!#h87i70kvochmp'
 
-# ⚙️ وضع التطوير (فعّلي False عند النشر)
+# ⚙️ وضع التطوير
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# 🧩 تعريف التطبيقات
+# 🧩 التطبيقات المثبتة
 INSTALLED_APPS = [
     # تطبيقات Django الافتراضية
     'django.contrib.admin',
@@ -71,10 +79,10 @@ TEMPLATES = [
     },
 ]
 
-# 🚀 تطبيق WSGI الرئيسي
+# 🚀 تطبيق WSGI
 WSGI_APPLICATION = 'myproject50.wsgi.application'
 
-# 🗄️ إعداد قاعدة البيانات (SQLite الافتراضية)
+# 🗄️ قاعدة البيانات
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -97,7 +105,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# 📂 الملفات الثابتة (Static Files)
+# 📂 الملفات الثابتة
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -105,10 +113,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # ⚙️ الإعداد الافتراضي للمفاتيح التلقائية
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 🌐 دعم ملفات الترجمة (Locale)
+# 🌐 دعم ملفات الترجمة
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-# ☁️ إعدادات Cloudinary (الجزء الأهم)
+# ☁️ إعدادات Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
@@ -118,11 +126,3 @@ CLOUDINARY_STORAGE = {
 # 🖼️ اجعل Django يستخدم Cloudinary لتخزين الوسائط
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
-
-# ✅ تهيئة Cloudinary بشكل صريح لتفادي خطأ cloud_name
-import cloudinary
-cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_NAME'),
-    api_key=os.getenv('CLOUDINARY_API_KEY'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET')
-)
