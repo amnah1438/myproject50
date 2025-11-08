@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from .models import Product
 
-# 🛒 عرض جميع المنتجات
+# 🛍️ عرض قائمة المنتجات
 def product_list(request):
     """
-    يعرض قائمة المنتجات من قاعدة البيانات في قالب HTML.
+    دالة تعرض جميع المنتجات الموجودة في قاعدة البيانات.
     """
-    products = Product.objects.all()  # ✅ جلب جميع المنتجات من قاعدة البيانات
-    return render(request, 'store/product_list.html', {'products': products})
+    products = Product.objects.all()  # جلب كل المنتجات
+    return render(request, 'store_templates/product_list.html', {'products': products})
