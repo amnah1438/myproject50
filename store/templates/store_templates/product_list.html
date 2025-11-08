@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة المنتجات</title>
+    <style>
+        body {
+            font-family: "Cairo", sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            text-align: center;
+            padding: 40px;
+        }
+        .product {
+            border: 2px solid #006c35;
+            border-radius: 12px;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 320px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #006c35;
+        }
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛍️ قائمة المنتجات</h1>
+
+    {% for product in products %}
+        <div class="product">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <p>لا توجد صورة</p>
+            {% endif %}
+            <h2>{{ product.name }}</h2>
+            <p>السعر: {{ product.price }} ر.س</p>
+            <p>{{ product.description }}</p>
+        </div>
+    {% empty %}
+        <p>لا توجد منتجات حالياً.</p>
+    {% endfor %}
+</body>
+</html>
