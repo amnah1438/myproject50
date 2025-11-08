@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # 🔍 اختبار مؤقت للتأكد من تحميل المفاتيح بنجاح
-print("🔍 CLOUDINARY TEST:", os.getenv("CLOUDINARY_NAME"), os.getenv("CLOUDINARY_API_KEY"))
+
 
 # 🔐 المفتاح السري للمشروع (غيّريه عند النشر)
 SECRET_KEY = 'django-insecure-4nrjl&6hxynae=1hk6r09*4y#%-*=dw#cju!#h87i70kvochmp'
