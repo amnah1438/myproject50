@@ -108,7 +108,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 🌐 دعم ملفات الترجمة (Locale)
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-# ☁️ إعدادات Cloudinary
+# ☁️ إعدادات Cloudinary (الجزء الأهم)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
@@ -117,4 +117,6 @@ CLOUDINARY_STORAGE = {
 
 # 🖼️ اجعل Django يستخدم Cloudinary لتخزين الملفات
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# 🌐 رابط الوسائط (للإشارة إلى Cloudinary)
 MEDIA_URL = '/media/'
