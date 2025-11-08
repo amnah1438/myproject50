@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv  # ✅ تحميل مفاتيح Cloudinary من ملف .env
 
 # 🏗️ المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# 🧭 تحميل ملف البيئة
+load_dotenv()
 
 # 🔐 المفتاح السري للمشروع (غيّريه عند النشر)
 SECRET_KEY = 'django-insecure-4nrjl&6hxynae=1hk6r09*4y#%-*=dw#cju!#h87i70kvochmp'
@@ -26,6 +30,10 @@ INSTALLED_APPS = [
     'core',
     'store',
     'billing',
+
+    # ☁️ Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 # 🧱 الوسطاء (Middleware)
@@ -83,25 +91,30 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # 🌍 اللغة والمنطقة الزمنية
-LANGUAGE_CODE = 'ar'         # اللغة العربية
-TIME_ZONE = 'Asia/Riyadh'    # التوقيت المحلي (الرياض)
+LANGUAGE_CODE = 'ar'
+TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 # 📂 إعداد الملفات الثابتة (Static Files)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]   # مجلد التطوير
-STATIC_ROOT = BASE_DIR / "staticfiles"     # مجلد الإنتاج
-
-# 🖼️ إعداد ملفات الوسائط (Media Files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # ⚙️ الإعداد الافتراضي للمفاتيح التلقائية
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 🌐 دعم ملفات الترجمة (Locale)
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
+LOCALE_PATHS = [BASE_DIR / 'locale']
+
+# ☁️ إعدادات Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+# 🖼️ اجعل Django يستخدم Cloudinary لتخزين الملفات
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'
