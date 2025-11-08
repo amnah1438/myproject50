@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField  # ✅ استيراد CloudinaryField لربط الصور بـ Cloudinary
+
 
 # 🏷️ الفئات
 class Category(models.Model):
@@ -23,7 +25,9 @@ class Product(models.Model):
     stock = models.PositiveIntegerField("الكمية المتوفرة", default=0)
     created_at = models.DateTimeField("تاريخ الإضافة", auto_now_add=True)
     updated_at = models.DateTimeField("تاريخ التحديث", auto_now=True)
-    image = models.ImageField("صورة المنتج", upload_to='products/', blank=True, null=True)
+
+    # ✅ السطر المطلوب — ربط الصورة بـ Cloudinary بدل ImageField
+    image = CloudinaryField("صورة المنتج", folder="products", blank=True, null=True)
 
     class Meta:
         verbose_name = "منتج"
