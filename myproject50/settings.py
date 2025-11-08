@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv  # ✅ تحميل مفاتيح Cloudinary من ملف .env
+from dotenv import load_dotenv  # ✅ لتحميل مفاتيح Cloudinary من ملف .env
 
 # 🏗️ المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,10 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🧭 تحميل ملف البيئة من المسار الصحيح
 load_dotenv(BASE_DIR / ".env")
 
-# 🔍 اختبار مؤقت للتأكد من تحميل المفاتيح بنجاح
-
-
-# 🔐 المفتاح السري للمشروع (غيّريه عند النشر)
+# 🔐 المفتاح السري للمشروع (تغيّريه عند النشر)
 SECRET_KEY = 'django-insecure-4nrjl&6hxynae=1hk6r09*4y#%-*=dw#cju!#h87i70kvochmp'
 
 # ⚙️ وضع التطوير (فعّلي False عند النشر)
@@ -34,7 +31,7 @@ INSTALLED_APPS = [
     'store',
     'billing',
 
-    # ☁️ Cloudinary
+    # ☁️ مكتبة Cloudinary
     'cloudinary',
     'cloudinary_storage',
 ]
@@ -43,7 +40,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # ✅ لدعم اللغة والترجمة
+    'django.middleware.locale.LocaleMiddleware',  # ✅ دعم اللغة والترجمة
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -59,8 +56,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',         # 📁 القوالب العامة
-            BASE_DIR / 'core' / 'templates' # 📁 القوالب الخاصة بتطبيق core
+            BASE_DIR / 'templates',          # 📁 القوالب العامة
+            BASE_DIR / 'core' / 'templates', # 📁 القوالب الخاصة بـ core
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -100,7 +97,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# 📂 إعداد الملفات الثابتة (Static Files)
+# 📂 الملفات الثابتة (Static Files)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -118,8 +115,14 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
-# 🖼️ اجعل Django يستخدم Cloudinary لتخزين الملفات
+# 🖼️ اجعل Django يستخدم Cloudinary لتخزين الوسائط
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# 🌐 رابط الوسائط (للإشارة إلى Cloudinary)
 MEDIA_URL = '/media/'
+
+# ✅ تهيئة Cloudinary بشكل صريح لتفادي خطأ cloud_name
+import cloudinary
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
